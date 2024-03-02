@@ -1,6 +1,6 @@
 # Image generator
 
-UJ project aiming to generate images.
+UJ project aiming to generate images using a GAN.
 
 ## Team
 
@@ -15,3 +15,7 @@ UJ project aiming to generate images.
 - PyTorch
 - torchvision
 - Spark ???
+
+## Dataset
+
+- CIFAR-10 (not all 10 classes)
