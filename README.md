@@ -13,11 +13,11 @@ Also see [our documentation](https://docs.google.com/presentation/d/1ti0BESmBx7A
 
 ## Stack
 
-- Python (3.10+)
-- PyTorch
+- Python (3.13)
+- PyTorch 
 - torchvision
 - Spark ???
 
 ## Dataset
 
-- CIFAR-10 (not all 10 classes)
+- CIFAR-10
