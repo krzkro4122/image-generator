@@ -1,0 +1,10 @@
+{% load custom_tags %}
+
+<div id="imageForm{{ image.offset }}" class="flex flex-col justify-center items-center">
+  <img
+    src="data:image/jpeg;base64,{{ image.image_base64 }}"
+    class="h-[16lvw] max-h-[20] border-2 border-white rounded-md hover:scale-[2] hover:z-50"
+    alt="Image"
+    type="image"
+  />
+</div>

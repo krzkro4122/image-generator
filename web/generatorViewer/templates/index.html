@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mx-auto">
+    <section class="flex flex-col items-center justify-center h-screen">
+      <h1 class="text-5xl bg-white p-6 rounded-md hover:scale-105 absolute top-14 text-black">Generator Viewer ❤️</h1>
+      {% block images %}
+      {% endblock %}
+    </section>
+  </div>
+{% endblock %}
