@@ -12,7 +12,6 @@ from generatorViewer.src.views_utils import (
 @csrf_exempt
 def index(request: HttpRequest):
     batch_size = 8  # TODO - Get from UI in the request
-    batch_index = 0  # TODO - Get from a DB or local storage
 
     request_model_name = request.POST.get(Keys.MODEL_NAME)
     model_name = "celeba" if not request_model_name else request_model_name
@@ -20,11 +19,10 @@ def index(request: HttpRequest):
     image_tensors = load_generated_images(batch_size=batch_size, model_name=model_name)
 
     return HttpResponse(
-        loader.get_template("images.html").render(
+        loader.get_template("images_form.html" if request_model_name else "images.html").render(
             request=request,
             context={
                 Keys.IMAGES: create_images(
-                    batch_index=batch_index,
                     batch_size=batch_size,
                     image_tensors=image_tensors,
                     model_name=model_name,
