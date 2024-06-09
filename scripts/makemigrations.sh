@@ -7,4 +7,4 @@ fi
 
 app_name=$1
 
-.venv/bin/python web/manage.py makemigrations $app_name
+python web/manage.py makemigrations $app_name

@@ -2,7 +2,36 @@
 
 <form hx-ext="path_params" name="form" id="form" class="flex flex-col items-center gap-8">
   {% csrf_token %}
-  <div class="flex w-[75dvw] gap-8 flex-wrap justify-center">
+  <div class="w-full flex gap-4">
+    <button
+      hx-swap="outerHTML"
+      hx-target="#form"
+      hx-post=""
+      hx-vals='{ "model_name": "celeba" }'
+      class="flex-grow rounded-md text-lg p-4 {% if images.model_name == "celeba" %}bg-black text-white border border-white{% else %}bg-white text-black{% endif %}"
+    >
+      CelebA
+    </button>
+    <button
+      hx-swap="outerHTML"
+      hx-target="#form"
+      hx-post=""
+      hx-vals='{ "model_name": "stl10" }'
+      class="bg-white flex-grow rounded-md text-lg p-4 {% if images.model_name == "stl10" %}bg-black text-white border border-white{% else %}bg-white text-black{% endif %}"
+    >
+      STL10
+    </button>
+    <button
+      hx-swap="outerHTML"
+      hx-target="#form"
+      hx-post=""
+      hx-vals='{ "model_name": "cifar10" }'
+      class="bg-white flex-grow rounded-md text-lg p-4 {% if images.model_name == "cifar10" %}bg-black text-white border border-white{% else %}bg-white text-black{% endif %}"
+    >
+      Cifar10
+    </button>
+  </div>
+  <div class="flex w-[75dvw] gap-8 flex-wrap justify-between">
     {% for image in images.entries %}
       {% render_image_form image %}
     {% endfor %}
@@ -18,6 +47,6 @@
     <span>
       Next batch
     </span>
-    👻
+    👾
   </button>
 </form>

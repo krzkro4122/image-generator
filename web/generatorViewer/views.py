@@ -9,13 +9,13 @@ from generatorViewer.src.views_utils import (
 
 
 def index(request: HttpRequest):
-    if request.method != "GET":
-        raise Http404("Method not allowed")
-
     batch_size = 8  # TODO - Get from UI in the request
     batch_index = 0  # TODO - Get from a DB or local storage
 
-    image_tensors = load_generated_images(batch_size=batch_size, model_name="celeba")
+    request_model_name = request.POST.get(Keys.MODEL_NAME)
+    model_name = "celeba" if not request_model_name else request_model_name
+
+    image_tensors = load_generated_images(batch_size=batch_size, model_name=model_name)
 
     return HttpResponse(
         loader.get_template("images.html").render(
@@ -25,6 +25,7 @@ def index(request: HttpRequest):
                     batch_index=batch_index,
                     batch_size=batch_size,
                     image_tensors=image_tensors,
+                    model_name=model_name,
                 ),
             },
         )
@@ -37,8 +38,12 @@ def next_batch(request: HttpRequest):
 
     request_batch_size = int(request.POST[Keys.BATCH_SIZE])
 
+    request_model_name = request.POST.get(Keys.MODEL_NAME)
+    model_name = "celeba" if not request_model_name else request_model_name
+
     image_tensors = load_generated_images(
-        batch_size=request_batch_size, model_name="celeba"
+        batch_size=request_batch_size,
+        model_name=model_name,
     )
 
     return HttpResponse(
@@ -48,6 +53,7 @@ def next_batch(request: HttpRequest):
                 Keys.IMAGES: create_images(
                     batch_size=request_batch_size,
                     image_tensors=image_tensors,
+                    model_name=model_name,
                 ),
             },
         )

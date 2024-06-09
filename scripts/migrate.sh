@@ -1,3 +1,3 @@
 #!/bin/bash
 
-.venv/bin/python web/manage.py migrate
+python web/manage.py migrate

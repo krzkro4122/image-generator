@@ -1,9 +1,7 @@
 import json
-import numpy as np
 import torch
 import torchvision.utils as vutils
 
-from PIL import ImageShow
 from dataclasses import dataclass
 
 from .image_converter import ImageUtils
@@ -21,25 +19,36 @@ class Keys:
     IMAGE = "image"
     ENTRIES = "entries"
     META = "meta"
+    MODEL_NAME = "model_name"
 
 
-def create_meta(batch_size: int, offset=0, batch_index: int | None = None):
+def create_meta(
+    batch_size: int, model_name: str, offset=0, batch_index: int | None = None
+):
     return json.dumps(
         {
             Keys.BATCH_INDEX: batch_index,
             Keys.OFFSET: offset,
+            Keys.MODEL_NAME: model_name,
             "batch_size": batch_size,
         }
     )
 
 
 def create_image(
-    batch_size: int, image_tensor, offset: int, batch_index: int | None = None
+    batch_size: int,
+    image_tensor,
+    offset: int,
+    model_name: str,
+    batch_index: int | None = None,
 ):
     return {
         "image_base64": ImageUtils.tensor2base64(image_tensor),
         Keys.META: create_meta(
-            batch_size=batch_size, batch_index=batch_index, offset=offset
+            batch_size=batch_size,
+            batch_index=batch_index,
+            offset=offset,
+            model_name=model_name,
         ),
         Keys.OFFSET: offset,
     }
@@ -54,6 +63,7 @@ def create_images(**kwargs):
             for i, image_tensor in enumerate(image_tensors)
         ],
         Keys.META: create_meta(**kwargs),
+        Keys.MODEL_NAME: kwargs["model_name"],
     }
 
 
