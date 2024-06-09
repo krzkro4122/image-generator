@@ -1,5 +1,6 @@
 from django.http import Http404, HttpRequest, HttpResponse
 from django.template import loader
+from django.views.decorators.csrf import csrf_exempt
 
 from generatorViewer.src.views_utils import (
     load_generated_images,
@@ -8,6 +9,7 @@ from generatorViewer.src.views_utils import (
 )
 
 
+@csrf_exempt
 def index(request: HttpRequest):
     batch_size = 8  # TODO - Get from UI in the request
     batch_index = 0  # TODO - Get from a DB or local storage
@@ -32,6 +34,7 @@ def index(request: HttpRequest):
     )
 
 
+@csrf_exempt
 def next_batch(request: HttpRequest):
     if request.method != "POST":
         raise Http404("Method not allowed")
